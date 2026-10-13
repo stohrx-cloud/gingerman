@@ -1,0 +1,1140 @@
+<!doctype html>
+<html lang="en-CA">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The Gingerman Social Eatery</title>
+<meta name="description" content="Kerr Village's neighbourhood gastro pub. Homemade food, cold pints, a patio on Kerr and live bands every Friday and Saturday. 416 Kerr Street, Oakville. Est. 2011.">
+<meta name="theme-color" content="#0f0d0c">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 120'%3E%3Cg fill='%23f15a29' stroke='%23f15a29' stroke-linecap='round'%3E%3Ccircle cx='50' cy='22' r='19' stroke='none'/%3E%3Cpath d='M50 54H20M50 54h30' stroke-width='18'/%3E%3Cpath d='M50 46v30' stroke-width='32'/%3E%3Cpath d='M42 80 30 106M58 80l12 26' stroke-width='19'/%3E%3C/g%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@700;800;900&family=Barlow:ital,wght@0,400;0,500;0,600;1,500&family=Yellowtail&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://unpkg.com/@phosphor-icons/web@2.1.1/src/regular/style.css">
+<link rel="stylesheet" href="https://unpkg.com/@phosphor-icons/web@2.1.1/src/bold/style.css">
+<link rel="stylesheet" href="https://unpkg.com/@phosphor-icons/web@2.1.1/src/fill/style.css">
+<link rel="preload" as="image" href="video/eat.jpg">
+<style>
+/* ---------- tokens ----------
+   Dark only, on purpose: it's a pub at night, and it matches the brand's black-and-orange kit.
+   Shape rule: everything is square, except "plates" (specials, gig cards, badges),
+   which get the chamfered riveted-steel corners from the in-house menu boards. */
+:root{
+  --bg:#0f0d0c;
+  --bg-2:#161311;
+  --bg-3:#1f1b18;
+  --steel-1:#2c2825;
+  --steel-2:#1c1916;
+  --line:rgba(255,236,220,.1);
+  --text:#f5efe8;
+  --muted:#b3a89d;
+  --accent:#f15a29;          /* pulled straight from the logo */
+  --accent-hi:#ff7547;
+  --accent-ink:#1a0d06;
+  --cream:#fff1e4;
+  --display:"Big Shoulders Display",system-ui,sans-serif;
+  --body:"Barlow",system-ui,sans-serif;
+  --script:"Yellowtail",cursive;
+  --ease:cubic-bezier(.16,1,.3,1);
+  --nav-h:72px;
+  --cut:14px;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%;scroll-padding-top:var(--nav-h)}
+body{background:var(--bg);color:var(--text);font-family:var(--body);font-size:17px;line-height:1.55;overflow-x:hidden}
+img,video{display:block;max-width:100%}
+a{color:inherit;text-decoration:none}
+button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
+:focus-visible{outline:2px solid var(--accent);outline-offset:3px}
+h1,h2,h3,h4{font-family:var(--display);font-weight:900;line-height:.92;letter-spacing:-.005em;text-transform:uppercase}
+h2{font-size:clamp(46px,7vw,96px)}
+h3{font-size:clamp(24px,2.4vw,32px);font-weight:800}
+.wrap{width:min(1400px,100% - 2rem);margin-inline:auto}
+section{padding-block:clamp(80px,10vw,140px)}
+.sub{color:var(--muted);max-width:58ch;font-size:19px;margin-top:18px}
+.head{margin-bottom:clamp(36px,4vw,56px)}
+.script{font-family:var(--script);text-transform:none;font-weight:400;color:var(--accent);letter-spacing:0}
+.eyebrow{font-family:var(--display);font-weight:800;text-transform:uppercase;letter-spacing:.16em;font-size:15px;color:var(--accent)}
+
+/* film grain, fixed so it never repaints with scroll */
+body::after{content:"";position:fixed;inset:0;z-index:90;pointer-events:none;opacity:.06;mix-blend-mode:overlay;
+  background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")}
+
+/* buttons */
+.btn{display:inline-flex;align-items:center;gap:10px;padding:16px 26px;font-family:var(--display);font-weight:800;font-size:19px;letter-spacing:.07em;text-transform:uppercase;background:var(--accent);color:var(--accent-ink);transition:transform .25s var(--ease),background .25s;white-space:nowrap}
+.btn:hover{background:var(--accent-hi)}
+.btn:active{transform:translateY(1px) scale(.98)}
+.btn.ghost{background:rgba(15,13,12,.5);color:var(--text);border:1px solid rgba(255,241,228,.4);backdrop-filter:blur(6px)}
+.btn.ghost:hover{background:rgba(255,241,228,.12)}
+.btn.sm{padding:11px 18px;font-size:17px}
+.btn i{font-size:20px}
+.link{font-family:var(--display);font-weight:800;text-transform:uppercase;letter-spacing:.07em;font-size:18px;display:inline-flex;align-items:center;gap:8px;border-bottom:2px solid var(--accent);padding-bottom:2px}
+.link i{transition:transform .25s var(--ease)}
+.link:hover i{transform:translateX(4px)}
+
+/* ---------- steel plate (the menu-board look) ---------- */
+.plate{position:relative;isolation:isolate;
+  background:
+    repeating-linear-gradient(90deg,rgba(255,255,255,.014) 0 1px,transparent 1px 3px),
+    linear-gradient(170deg,var(--steel-1),var(--steel-2) 70%);
+  clip-path:polygon(var(--cut) 0,calc(100% - var(--cut)) 0,100% var(--cut),100% calc(100% - var(--cut)),calc(100% - var(--cut)) 100%,var(--cut) 100%,0 calc(100% - var(--cut)),0 var(--cut));
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.07),inset 0 -2px 0 rgba(0,0,0,.45)}
+.plate.rivets::after{content:"";position:absolute;inset:12px;pointer-events:none;z-index:-1;
+  --r:radial-gradient(circle at 45% 40%,#efe8df 0 1px,#958d85 1.6px 3px,#2a2622 4.2px,transparent 5px);
+  background:var(--r) 0 0/12px 12px no-repeat,var(--r) 100% 0/12px 12px no-repeat,var(--r) 0 100%/12px 12px no-repeat,var(--r) 100% 100%/12px 12px no-repeat}
+
+/* ---------- nav ---------- */
+.nav{position:fixed;inset:0 0 auto 0;height:var(--nav-h);z-index:50;display:flex;align-items:center;transition:background .35s,border-color .35s;border-bottom:1px solid transparent}
+.nav.solid{background:rgba(15,13,12,.86);backdrop-filter:blur(14px);border-color:var(--line)}
+.nav .wrap{display:flex;align-items:center;gap:32px}
+.brand{flex:none;display:block}
+.brand img{height:38px;width:auto}
+.menu{display:flex;gap:26px;font-family:var(--display);font-weight:800;font-size:18px;letter-spacing:.08em;text-transform:uppercase}
+.menu a{position:relative;padding:6px 0}
+.menu a::after{content:"";position:absolute;left:0;right:0;bottom:0;height:2px;background:var(--accent);transform:scaleX(0);transform-origin:left;transition:transform .3s var(--ease)}
+.menu a:hover::after{transform:scaleX(1)}
+.tools{margin-left:auto;display:flex;align-items:center;gap:14px}
+.status{font-size:15px;color:var(--muted);display:flex;align-items:center;gap:8px;white-space:nowrap}
+.status b{font-weight:600;color:var(--text)}
+.status::before{content:"";width:8px;height:8px;border-radius:50%;background:var(--muted)}
+.status.open::before{background:#5fd38d;box-shadow:0 0 0 4px rgba(95,211,141,.15)}
+.icon-btn{display:grid;place-items:center;width:44px;height:44px;font-size:23px;transition:color .2s}
+.icon-btn:hover{color:var(--accent)}
+.burger{display:none}
+@media (max-width:1180px){.menu{display:none}.burger{display:grid}}
+@media (max-width:1320px){.tools .status{display:none}}
+@media (max-width:560px){.tools .btn{display:none}.brand img{height:32px}}
+
+/* mobile drawer */
+.drawer{position:fixed;inset:0;z-index:60;background:var(--bg);display:grid;grid-template-rows:auto 1fr auto;transform:translateX(100%);transition:transform .45s var(--ease);visibility:hidden}
+.drawer.open{transform:none;visibility:visible}
+.drawer header{height:var(--nav-h);display:flex;align-items:center;justify-content:space-between;padding:0 1rem;border-bottom:1px solid var(--line)}
+.drawer nav{display:flex;flex-direction:column;padding:24px 1rem;overflow:auto}
+.drawer nav a{font-family:var(--display);font-weight:900;text-transform:uppercase;font-size:44px;line-height:1;padding:14px 0;border-bottom:1px solid var(--line)}
+.drawer footer{padding:1rem;color:var(--muted);font-size:15px;border-top:1px solid var(--line);display:grid;gap:12px}
+
+/* ---------- hero ---------- */
+.hero{position:relative;min-height:100dvh;overflow:hidden;background:#0a0807;padding:0;touch-action:pan-y;user-select:none}
+.track{position:absolute;inset:0;display:flex;width:300%;transition:transform .6s var(--ease);will-change:transform}
+.track.dragging{transition:none}
+.scene{position:relative;flex:0 0 33.3333%;height:100%;overflow:hidden}
+.scene video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transform:scale(1.04);transition:transform 10s linear}
+.scene.on video{transform:scale(1)}
+.scene::before{content:"";position:absolute;inset:0;z-index:1;pointer-events:none;background:
+  linear-gradient(90deg,rgba(15,13,12,.85) 0%,rgba(15,13,12,.45) 45%,rgba(15,13,12,.05) 100%),
+  linear-gradient(0deg,rgba(15,13,12,.92) 0%,rgba(15,13,12,0) 50%),
+  linear-gradient(180deg,rgba(15,13,12,.7) 0%,rgba(15,13,12,0) 22%)}
+.scene .copy{position:absolute;left:0;right:0;bottom:clamp(104px,15vh,170px);z-index:2}
+.scene .copy .wrap{max-width:760px;margin-left:max(1rem,calc((100vw - 1400px)/2))}
+.scene .eyebrow{display:block;margin-bottom:6px;opacity:0;transition:opacity .6s var(--ease) .1s}
+.scene h1{font-size:clamp(104px,17vw,250px);line-height:.8;margin-bottom:22px;overflow:hidden;padding-top:.04em}
+.scene h1 span{display:block;transform:translateY(105%);transition:transform 1s var(--ease)}
+.scene h1 em{font-style:normal;color:var(--accent)}
+.scene p{font-size:clamp(18px,1.5vw,22px);color:#e6ddd3;max-width:42ch;margin-bottom:30px;opacity:0;transform:translateY(16px);transition:opacity .7s var(--ease) .25s,transform .7s var(--ease) .25s}
+.scene .cta{display:flex;gap:12px;flex-wrap:wrap;opacity:0;transform:translateY(16px);transition:opacity .7s var(--ease) .4s,transform .7s var(--ease) .4s}
+.scene.on .eyebrow{opacity:1}
+.scene.on h1 span{transform:none}
+.scene.on p,.scene.on .cta{opacity:1;transform:none}
+.hud{position:absolute;left:0;right:0;bottom:30px;z-index:3;display:flex;align-items:center;gap:20px;padding-inline:max(1rem,calc((100vw - 1400px)/2))}
+.dots{display:flex;gap:8px}
+.dots button{width:64px;height:3px;background:rgba(255,241,228,.28);position:relative;overflow:hidden}
+.dots button::before{content:"";position:absolute;inset:-14px 0}
+.dots button span{position:absolute;inset:0;background:var(--accent);transform:scaleX(0);transform-origin:left}
+.dots button.live span{transform:scaleX(var(--p,0))}
+.dots button.done span{transform:scaleX(1);background:var(--cream)}
+.scene-label{font-family:var(--display);font-weight:800;text-transform:uppercase;letter-spacing:.16em;font-size:15px;text-shadow:0 1px 8px rgba(0,0,0,.8)}
+.arrows{margin-left:auto;display:flex;gap:6px}
+.arrows button{width:48px;height:48px;border:1px solid rgba(255,241,228,.35);display:grid;place-items:center;font-size:22px;transition:background .2s,color .2s,border-color .2s}
+.arrows button:hover{background:var(--cream);color:var(--bg);border-color:var(--cream)}
+/* next-on-stage plate, top right of the hero bottom band */
+.onstage{position:absolute;z-index:3;right:max(1rem,calc((100vw - 1400px)/2));bottom:104px;width:320px;padding:22px 26px 24px;display:grid;gap:6px;opacity:0;transform:translateY(16px);transition:opacity .8s var(--ease) .9s,transform .8s var(--ease) .9s,background .3s}
+.onstage.in{opacity:1;transform:none}
+.onstage small{font-family:var(--display);font-weight:800;letter-spacing:.16em;text-transform:uppercase;font-size:14px;color:var(--accent);display:flex;align-items:center;gap:8px}
+.onstage small i{font-size:18px}
+.onstage strong{font-family:var(--display);font-weight:900;font-size:34px;line-height:.95;text-transform:uppercase}
+.onstage span{color:var(--muted);font-size:16px}
+.onstage:hover{background:linear-gradient(170deg,#3a332e,#221e1b 70%)}
+.onstage[hidden]{display:none}
+@media (max-width:1000px){.onstage{display:none}}
+@media (max-width:640px){.scene-label{display:none}.dots button{width:40px}.scene::before{background:linear-gradient(0deg,rgba(15,13,12,.97) 0%,rgba(15,13,12,.75) 42%,rgba(15,13,12,0) 72%),linear-gradient(180deg,rgba(15,13,12,.7),rgba(15,13,12,0) 25%)}}
+
+/* ---------- ticker (the one marquee) ---------- */
+.ticker{border-block:1px solid var(--line);background:var(--accent);color:var(--accent-ink);overflow:hidden;padding:14px 0;font-family:var(--display);font-weight:800;text-transform:uppercase;letter-spacing:.12em;font-size:18px}
+.ticker div{display:flex;width:max-content;animation:tick 48s linear infinite}
+.ticker span{display:flex;align-items:center;gap:28px;padding-right:28px;white-space:nowrap}
+.ticker svg{width:16px;height:19px;flex:none;--gm:#1a0d06;--gm-icing:#f15a29;--gm-eyes:#f15a29}
+@keyframes tick{to{transform:translateX(-50%)}}
+
+/* ---------- weekly specials ---------- */
+.days{display:grid;grid-template-columns:repeat(7,1fr);gap:6px;margin-bottom:14px}
+.days button{position:relative;padding:16px 8px 14px;background:var(--bg-2);border:1px solid var(--line);font-family:var(--display);font-weight:800;font-size:20px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);transition:color .2s,background .2s,border-color .2s}
+.days button:hover{color:var(--text)}
+.days button[aria-selected=true]{color:var(--accent-ink);background:var(--accent);border-color:var(--accent)}
+.days button .today{position:absolute;top:-10px;left:50%;transform:translateX(-50%);font-size:12px;letter-spacing:.14em;background:var(--cream);color:var(--bg);padding:2px 7px}
+.days .short{display:none}
+@media (max-width:760px){.days{grid-template-columns:repeat(7,minmax(0,1fr));gap:4px}.days button{font-size:16px;padding:14px 2px 12px}.days .long{display:none}.days .short{display:inline}}
+.board{display:grid;grid-template-columns:1.7fr 1fr;gap:14px}
+.special{--cut:22px;min-height:440px;padding:clamp(32px,5vw,64px);display:grid;align-content:end;overflow:hidden}
+.special .day{font-family:var(--display);font-weight:900;font-size:22px;letter-spacing:.14em;text-transform:uppercase;color:var(--accent)}
+.special .price{font-family:var(--display);font-weight:900;font-size:clamp(120px,15vw,210px);line-height:.8;margin:14px 0 10px;letter-spacing:-.02em}
+.special .price sup{font-size:.42em;vertical-align:.95em;margin-right:4px}
+.special h3{font-size:clamp(38px,4.6vw,64px);font-weight:900}
+.special p{color:#d6ccc1;max-width:44ch;font-size:19px;margin-top:14px}
+.special .gman{position:absolute;right:-30px;bottom:-40px;width:clamp(220px,26vw,340px);opacity:.9;z-index:-1;filter:drop-shadow(0 18px 30px rgba(0,0,0,.5));transform:rotate(-12deg)}
+.special .anim{animation:swap .55s var(--ease) both}
+@keyframes swap{from{opacity:0;transform:translateY(20px)}}
+.everyday{display:grid;gap:14px}
+.everyday .plate{padding:34px 34px 30px;display:grid;align-content:center;gap:4px}
+.everyday small{font-family:var(--display);font-weight:800;letter-spacing:.14em;text-transform:uppercase;color:var(--accent);font-size:17px}
+.everyday strong{font-family:var(--display);font-weight:900;font-size:76px;line-height:.85}
+.everyday strong span{font-size:28px;letter-spacing:.06em;margin-left:6px}
+.everyday ul{list-style:none;margin-top:12px;display:grid;gap:6px;font-family:var(--display);font-weight:700;font-size:21px;text-transform:uppercase;letter-spacing:.05em}
+.everyday li::before{content:"";display:inline-block;width:12px;height:2px;background:var(--accent);vertical-align:middle;margin-right:12px}
+@media (max-width:900px){.board{grid-template-columns:1fr}.everyday{grid-template-columns:1fr 1fr}.special{min-height:380px}}
+@media (max-width:560px){.everyday{grid-template-columns:1fr}.special{min-height:420px}.special .gman{width:130px;right:-14px;top:-12px;bottom:auto}}
+
+/* ---------- menu ---------- */
+.menu-sec{background:var(--bg-2);border-block:1px solid var(--line)}
+.mtabs{display:flex;gap:4px;border-bottom:1px solid var(--line);margin-bottom:44px;overflow-x:auto;scrollbar-width:none;align-items:end}
+.mtabs::-webkit-scrollbar{display:none}
+.mtabs [role=tab]{font-family:var(--display);font-weight:800;font-size:21px;text-transform:uppercase;letter-spacing:.07em;padding:14px 18px;color:var(--muted);border-bottom:3px solid transparent;margin-bottom:-1px;white-space:nowrap;transition:color .2s}
+.mtabs [role=tab]:hover{color:var(--text)}
+.mtabs [role=tab][aria-selected=true]{color:var(--text);border-color:var(--accent)}
+.gf-toggle{margin-left:auto;display:inline-flex;align-items:center;gap:10px;padding:10px 16px;margin-bottom:8px;border:1px solid var(--line);font-size:15px;font-weight:600;white-space:nowrap;transition:border-color .2s,background .2s,color .2s}
+.gf-toggle i{font-size:20px;color:var(--accent)}
+.gf-toggle[aria-pressed=true]{background:var(--accent);color:var(--accent-ink);border-color:var(--accent)}
+.gf-toggle[aria-pressed=true] i{color:var(--accent-ink)}
+.menu-grid{display:grid;grid-template-columns:minmax(0,5fr) minmax(0,7fr);gap:clamp(32px,5vw,72px);align-items:start}
+.mpanel{position:sticky;top:calc(var(--nav-h) + 24px)}
+.mpanel .ph{aspect-ratio:4/3;overflow:hidden;background:var(--bg-3);margin-bottom:26px}
+.mpanel img{width:100%;height:100%;object-fit:cover;animation:swap .7s var(--ease) both}
+.mpanel h3{font-size:clamp(40px,4.4vw,64px);font-weight:900;margin-bottom:12px}
+.mpanel p{color:var(--muted);max-width:44ch}
+.mpanel .note{margin-top:20px;font-size:15px;color:var(--muted);display:flex;gap:16px;flex-wrap:wrap}
+.mpanel .note span{display:inline-flex;align-items:center;gap:6px}
+.mpanel .note i{color:var(--accent);font-size:18px}
+.items{display:grid;grid-template-columns:1fr 1fr;gap:30px 44px;align-content:start}
+.item{animation:swap .5s var(--ease) both;animation-delay:calc(var(--i,0) * 30ms)}
+.ih{display:flex;align-items:baseline;gap:10px}
+.ih h4{font-size:23px;font-weight:800;letter-spacing:.02em;line-height:1.05}
+.ih .dots{flex:1;border-bottom:2px dotted rgba(255,236,220,.22);transform:translateY(-5px);min-width:16px}
+.ih b{font-family:var(--display);font-weight:900;font-size:24px;color:var(--accent)}
+.item p{color:var(--muted);font-size:16px;margin-top:6px;line-height:1.45}
+.gf{flex:none;font-family:var(--display);font-weight:800;font-size:12px;letter-spacing:.08em;color:var(--accent);border:1.5px solid var(--accent);padding:1px 5px;transform:translateY(-3px)}
+.empty{grid-column:1/-1;display:grid;justify-items:center;text-align:center;gap:12px;padding:56px 24px;border:1px dashed rgba(255,236,220,.25)}
+.empty i{font-size:46px;color:var(--accent)}
+.empty h4{font-size:34px}
+.empty p{color:var(--muted);max-width:40ch}
+@media (max-width:1000px){.menu-grid{grid-template-columns:1fr}.mpanel{position:static;display:grid;grid-template-columns:1fr 1fr;gap:28px;align-items:center}.mpanel .ph{margin:0}}
+@media (max-width:640px){.items{grid-template-columns:1fr}.mpanel{grid-template-columns:1fr}
+  .mtabs{flex-direction:column-reverse;align-items:flex-start;overflow:visible}
+  #mtablist{overflow-x:auto;max-width:100%;scrollbar-width:none}
+  .gf-toggle{margin:0 0 8px}}
+
+/* ---------- live music ---------- */
+.music{position:relative;overflow:hidden}
+.music::before{content:"";position:absolute;inset:-20% -10% auto auto;width:70vw;height:70vw;max-width:1000px;max-height:1000px;background:radial-gradient(closest-side,rgba(241,90,41,.16),transparent);pointer-events:none}
+.music .wrap{position:relative}
+.music h2 .script{display:block;font-size:.5em;line-height:1.2;margin-top:4px;padding-bottom:4px}
+.next{display:grid;grid-template-columns:minmax(0,5fr) minmax(0,7fr);gap:0;background:var(--bg-2);border:1px solid var(--line);margin-bottom:64px}
+.pst{position:relative;overflow:hidden;background:#0b0908;aspect-ratio:3/4}
+.pst::before{content:"";position:absolute;inset:-30px;background:var(--img) center/cover;filter:blur(22px) brightness(.45) saturate(1.2)}
+.pst img{position:relative;width:100%;height:100%;object-fit:contain}
+.next .pst{aspect-ratio:auto;min-height:460px}
+.next .info{padding:clamp(28px,4.5vw,64px);display:grid;align-content:center;gap:18px}
+.when{font-family:var(--display);font-weight:900;text-transform:uppercase;letter-spacing:.12em;font-size:20px;color:var(--accent);display:flex;align-items:center;gap:10px}
+.when i{font-size:24px}
+.next h3{font-size:clamp(54px,7vw,104px);font-weight:900;line-height:.86}
+.next .meta{font-size:20px;color:#ddd3c8}
+.next .note{color:var(--muted);max-width:46ch}
+.next .cta{display:flex;gap:12px;flex-wrap:wrap;margin-top:8px}
+@media (max-width:860px){.next{grid-template-columns:1fr}.next .pst{min-height:0;aspect-ratio:4/3}}
+
+.rail-head{display:flex;align-items:end;justify-content:space-between;gap:20px;margin-bottom:28px;flex-wrap:wrap}
+.rail-head h3{font-size:clamp(34px,3.4vw,48px)}
+.chips{display:flex;gap:8px;flex-wrap:wrap}
+.chips button{padding:10px 18px;border:1px solid rgba(255,241,228,.3);font-family:var(--display);font-weight:800;font-size:17px;text-transform:uppercase;letter-spacing:.08em;transition:background .2s,color .2s,border-color .2s}
+.chips button:hover{border-color:var(--cream)}
+.chips button[aria-pressed=true]{background:var(--cream);color:var(--bg);border-color:var(--cream)}
+.rail{display:flex;gap:16px;overflow-x:auto;scroll-snap-type:x mandatory;padding-bottom:14px;scrollbar-width:thin;scrollbar-color:var(--accent) transparent;margin-inline:calc(-1 * max(1rem,(100vw - 1400px)/2));padding-inline:max(1rem,calc((100vw - 1400px)/2));scroll-padding-inline:max(1rem,calc((100vw - 1400px)/2))}
+.gig{flex:0 0 min(280px,74vw);scroll-snap-align:start;background:var(--bg-2);display:grid;grid-template-rows:auto 1fr;animation:swap .5s var(--ease) both;animation-delay:calc(var(--i,0) * 40ms)}
+.gig .pst img{transition:transform .8s var(--ease)}
+.gig:hover .pst img{transform:scale(1.04)}
+.pst.type{display:grid;align-content:space-between;padding:22px;--cut:0px}
+.pst.type::before{display:none}
+.pst.type .d{font-family:var(--display);font-weight:900;font-size:120px;line-height:.8;color:var(--accent)}
+.pst.type .m{font-family:var(--display);font-weight:800;letter-spacing:.2em;font-size:20px;text-transform:uppercase;margin-top:6px}
+.pst.type .n{font-family:var(--display);font-weight:900;font-size:44px;line-height:.9;text-transform:uppercase;align-self:end}
+.pst.type .gm-mini{position:absolute;right:18px;top:20px;width:38px;opacity:.85}
+.gig .gm{padding:16px 18px 18px;display:grid;grid-template-columns:1fr auto;gap:2px 10px;align-items:center}
+.gig .gd{font-family:var(--display);font-weight:800;letter-spacing:.12em;text-transform:uppercase;font-size:15px;color:var(--accent)}
+.gig h4{font-size:24px;font-weight:800;line-height:1;grid-column:1}
+.gig .t{color:var(--muted);font-size:15px;grid-column:1}
+.gig .ics{grid-row:1/4;grid-column:2;width:44px;height:44px;border:1px solid var(--line);display:grid;place-items:center;font-size:21px;transition:background .2s,color .2s,border-color .2s}
+.gig .ics:hover{background:var(--accent);color:var(--accent-ink);border-color:var(--accent)}
+
+.stage{display:grid;grid-template-columns:repeat(4,1fr);gap:0;border:1px solid var(--line);margin:72px 0 0}
+.stage div{padding:28px 26px;border-right:1px solid var(--line);display:grid;gap:10px;align-content:start}
+.stage div:last-child{border-right:0}
+.stage i{font-size:32px;color:var(--accent)}
+.stage b{font-family:var(--display);font-weight:800;font-size:24px;text-transform:uppercase;line-height:1}
+.stage span{color:var(--muted);font-size:15px}
+@media (max-width:900px){.stage{grid-template-columns:1fr 1fr}.stage div:nth-child(2){border-right:0}.stage div:nth-child(-n+2){border-bottom:1px solid var(--line)}}
+
+.voices{display:grid;grid-template-columns:minmax(0,8fr) minmax(0,4fr);gap:clamp(32px,5vw,80px);align-items:center;margin-top:88px}
+.voices blockquote{font-size:clamp(26px,2.8vw,40px);line-height:1.22;font-weight:500;font-style:italic;min-height:3.8em;position:relative;padding-left:clamp(0px,3vw,48px)}
+.voices blockquote::before{content:"\201C";position:absolute;left:clamp(-20px,-1vw,0px);top:-.32em;font-family:var(--display);font-style:normal;font-weight:900;font-size:3.2em;color:var(--accent);line-height:1}
+.voices blockquote p{animation:swap .6s var(--ease) both}
+.voices cite{display:block;margin-top:22px;font-style:normal;font-size:16px;color:var(--muted)}
+.voices cite b{font-family:var(--display);font-weight:800;font-size:22px;letter-spacing:.06em;text-transform:uppercase;color:var(--text);margin-right:10px}
+.bands{display:grid;gap:2px;border-left:1px solid var(--line)}
+.bands button{text-align:left;padding:10px 0 10px 22px;font-family:var(--display);font-weight:800;font-size:22px;text-transform:uppercase;letter-spacing:.05em;color:var(--muted);position:relative;transition:color .2s}
+.bands button::before{content:"";position:absolute;left:-1px;top:8px;bottom:8px;width:3px;background:var(--accent);transform:scaleY(0);transition:transform .3s var(--ease)}
+.bands button:hover{color:var(--text)}
+.bands button[aria-selected=true]{color:var(--text)}
+.bands button[aria-selected=true]::before{transform:none}
+.booking{margin-top:48px;display:flex;align-items:center;justify-content:space-between;gap:20px;flex-wrap:wrap;padding-top:28px;border-top:1px solid var(--line)}
+.booking p{color:var(--muted);max-width:60ch}
+.booking b{color:var(--text);font-weight:600}
+@media (max-width:860px){.voices{grid-template-columns:1fr}.bands{grid-template-columns:repeat(3,1fr);border-left:0;border-top:1px solid var(--line)}.bands button{padding:12px 4px;font-size:17px}.bands button::before{left:0;right:0;top:-1px;bottom:auto;height:3px;width:auto;transform:scaleX(0)}.bands button[aria-selected=true]::before{transform:none}}
+
+/* ---------- story banner ---------- */
+.story{position:relative;min-height:84vh;display:grid;align-items:center;padding:0;overflow:hidden;background:#0a0807}
+.story > img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:.6}
+.story::before{content:"";position:absolute;inset:0;z-index:1;background:linear-gradient(90deg,rgba(15,13,12,.95) 15%,rgba(15,13,12,.35)),linear-gradient(0deg,rgba(15,13,12,.9),transparent 40%)}
+.story .wrap{position:relative;z-index:2;padding-block:120px}
+.story .script{font-size:clamp(44px,5vw,70px);line-height:1;display:block;margin-bottom:6px}
+.story h2{font-size:clamp(56px,9vw,136px);line-height:.84}
+.story h2 span,.story h2 em{display:block}
+.story h2 em{font-style:normal;color:var(--accent)}
+.story p{color:#e0d6cb;max-width:50ch;font-size:20px;margin:26px 0 0}
+.facts{display:grid;grid-template-columns:repeat(4,auto);justify-content:start;gap:clamp(28px,5vw,72px);margin-top:56px}
+.facts b{display:block;font-family:var(--display);font-weight:900;font-size:clamp(48px,5vw,72px);line-height:.9}
+.facts span{color:var(--muted);font-size:15px;max-width:20ch;display:block;margin-top:6px}
+@media (max-width:760px){.facts{grid-template-columns:1fr 1fr}}
+
+/* ---------- community bento ---------- */
+.bento{display:grid;gap:12px;grid-template-columns:repeat(4,1fr);grid-auto-rows:280px}
+.tile{position:relative;overflow:hidden;background:var(--bg-3);display:flex;flex-direction:column;justify-content:flex-end;padding:28px;isolation:isolate}
+.tile > img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:-2;transition:transform 1.2s var(--ease)}
+.tile::before{content:"";position:absolute;inset:0;z-index:-1;background:linear-gradient(0deg,rgba(15,13,12,.94) 10%,rgba(15,13,12,.15) 70%)}
+.tile:hover > img{transform:scale(1.05)}
+.tile h3{font-size:clamp(28px,2.6vw,40px);font-weight:900}
+.tile p{color:#d8cec3;font-size:16px;margin-top:8px;max-width:46ch}
+.tile .link{margin-top:16px;align-self:flex-start;font-size:16px}
+.tile.big{grid-column:span 2;grid-row:span 2}
+.tile.wide{grid-column:span 2}
+.tile.full{grid-column:1/-1}
+.tile.big h3{font-size:clamp(36px,4vw,60px)}
+.tile.hire{background:var(--accent);color:var(--accent-ink)}
+.tile.hire::before{display:none}
+.tile.hire p{color:#3b1a0b}
+.tile.hire .link{border-color:var(--accent-ink)}
+.tile.hire .gman{position:absolute;right:-18px;top:-22px;width:130px;transform:rotate(14deg);z-index:-1}
+.tile.hire .gman{--gm:#1a0d06;--gm-icing:#f15a29;--gm-eyes:#f15a29}
+.tile.full::before{background:linear-gradient(90deg,rgba(15,13,12,.92) 20%,rgba(15,13,12,.1) 75%)}
+@media (max-width:1000px){.bento{grid-template-columns:repeat(2,1fr);grid-auto-rows:260px}.tile.big{grid-row:span 2}.tile.full{grid-column:span 2}}
+@media (max-width:600px){.bento{grid-template-columns:1fr;grid-auto-rows:minmax(260px,auto)}.tile.big,.tile.wide,.tile.full{grid-column:span 1}.tile.big{grid-row:span 1;min-height:420px}}
+
+/* ---------- visit ---------- */
+.visit{background:var(--bg-2);border-top:1px solid var(--line)}
+.visit-grid{display:grid;grid-template-columns:1fr 1.15fr;gap:clamp(32px,5vw,72px);align-items:stretch}
+.open-now{margin-top:26px;display:inline-flex}
+.open-now.status{font-size:17px}
+.hours{display:grid;grid-template-columns:auto 1fr;gap:12px 32px;font-size:18px;margin:28px 0 36px;max-width:440px}
+.hours b{font-family:var(--display);font-weight:800;text-transform:uppercase;letter-spacing:.06em;font-size:21px}
+.hours .today{color:var(--accent)}
+.contact{display:grid;gap:16px;font-size:18px}
+.contact a{display:flex;align-items:center;gap:14px;width:fit-content}
+.contact a:hover{color:var(--accent)}
+.contact i{color:var(--accent);font-size:24px}
+.map{border:0;width:100%;min-height:460px;height:100%;filter:grayscale(1) invert(.92) contrast(.88) sepia(.18) hue-rotate(180deg)}
+@media (max-width:900px){.visit-grid{grid-template-columns:1fr}.map{min-height:360px}}
+
+/* ---------- footer ---------- */
+footer{border-top:1px solid var(--line);padding:64px 0 110px;color:var(--muted);font-size:15px}
+.fgrid{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:32px;margin-bottom:44px}
+.fgrid h4{font-size:22px;font-weight:800;color:var(--text);margin-bottom:12px}
+.fgrid a{display:block;padding:4px 0;transition:color .2s}
+.fgrid a:hover{color:var(--text)}
+.fgrid .script{font-size:30px;display:block;margin-top:14px}
+.fbot{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;border-top:1px solid var(--line);padding-top:24px}
+@media (max-width:760px){.fgrid{grid-template-columns:1fr 1fr}.fgrid > div:first-child{grid-column:1/-1}}
+
+/* ---------- catch the gingerman ---------- */
+#chase{position:fixed;inset:auto 0 0 0;height:0;z-index:40;pointer-events:none;transform:translateX(110vw);transition:transform .9s var(--ease)}
+#chase.in{transform:none}
+#gman{position:fixed;left:0;bottom:6px;width:64px;height:78px;pointer-events:auto;cursor:pointer;transition:transform .6s var(--ease);will-change:transform;-webkit-tap-highlight-color:transparent;touch-action:manipulation}
+#gman svg{width:100%;height:100%;overflow:visible;filter:drop-shadow(0 8px 10px rgba(0,0,0,.55));transition:transform .2s}
+#gman.left svg{transform:scaleX(-1)}
+#gman .leg,#gman .arm{transform-box:fill-box}
+#gman .leg{transform-origin:50% 0}
+#gman .arm.l{transform-origin:100% 50%}
+#gman .arm.r{transform-origin:0 50%}
+#gman.run .leg.l{animation:legA .18s ease-in-out infinite alternate}
+#gman.run .leg.r{animation:legB .18s ease-in-out infinite alternate}
+#gman.run .arm{animation:armA .18s ease-in-out infinite alternate}
+#gman.run svg{animation:bob .18s ease-in-out infinite alternate}
+#gman.idle .arm.r{animation:wave 1.4s ease-in-out infinite}
+#gman.jump svg{animation:hop .7s var(--ease)}
+@keyframes legA{from{transform:rotate(28deg)}to{transform:rotate(-28deg)}}
+@keyframes legB{from{transform:rotate(-28deg)}to{transform:rotate(28deg)}}
+@keyframes armA{from{transform:rotate(-14deg)}to{transform:rotate(14deg)}}
+@keyframes bob{to{translate:0 -5px}}
+@keyframes wave{0%,60%,100%{transform:rotate(0)}20%{transform:rotate(-38deg)}40%{transform:rotate(-12deg)}}
+@keyframes hop{30%{translate:0 -60px;rotate:-12deg}60%{translate:0 0;rotate:6deg}}
+#bubble{position:fixed;left:0;bottom:96px;pointer-events:none;background:var(--cream);color:var(--bg);font-family:var(--display);font-weight:800;font-size:18px;text-transform:uppercase;letter-spacing:.03em;padding:8px 14px;white-space:nowrap;transition:transform .6s var(--ease),opacity .3s;opacity:0}
+#bubble.show{opacity:1}
+#bubble::after{content:"";position:absolute;left:28px;bottom:-8px;border:8px solid transparent;border-bottom:0;border-top-color:var(--cream)}
+#count{position:fixed;left:0;bottom:150px;pointer-events:none;font-family:var(--display);font-weight:900;font-size:clamp(56px,7vw,96px);line-height:1;opacity:0;transition:transform .6s var(--ease)}
+#count b{display:block;padding:.04em .2em .02em;background:var(--accent);color:var(--accent-ink);clip-path:polygon(6% 0,100% 5%,94% 100%,0 92%);transform:rotate(-8deg)}
+#count.hit{opacity:1}
+#count.hit b{animation:punch .45s var(--ease) forwards}
+@keyframes punch{0%{transform:scale(2.1) rotate(6deg)}35%{transform:scale(.9) rotate(-11deg)}100%{transform:scale(1) rotate(-8deg)}}
+#confetti{position:fixed;inset:0;z-index:41;pointer-events:none}
+@media (max-width:640px){#gman{width:52px;height:64px}#bubble{font-size:15px;bottom:80px}}
+
+/* reveal on scroll */
+.rv{opacity:0;transform:translateY(26px);transition:opacity .9s var(--ease),transform .9s var(--ease)}
+.rv.in{opacity:1;transform:none}
+
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation:none!important;transition:none!important;scroll-behavior:auto!important}
+  .rv{opacity:1;transform:none}
+}
+</style>
+</head>
+<body>
+
+<!-- the house mascot, drawn once and reused -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+    <symbol id="gm" viewBox="0 0 100 120">
+      <g class="body" style="fill:var(--gm,#f15a29)">
+        <circle cx="50" cy="22" r="19"/>
+        <rect x="34" y="40" width="32" height="44" rx="14"/>
+      </g>
+      <g style="stroke:var(--gm,#f15a29)" stroke-linecap="round" fill="none" class="limbs">
+        <path class="arm l" d="M40 54H18" stroke-width="18"/>
+        <path class="arm r" d="M60 54h22" stroke-width="18"/>
+        <path class="leg l" d="M43 80 33 106" stroke-width="19"/>
+        <path class="leg r" d="M57 80l10 26" stroke-width="19"/>
+      </g>
+      <g fill="none" style="stroke:var(--gm-icing,#fff1e4)" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M42 29q8 6 16 0"/>
+        <path d="M14 48l3 3-3 3 3 3M86 48l-3 3 3 3-3 3" stroke-width="2.2"/>
+      </g>
+      <g style="fill:var(--gm-eyes,#1a0d06)"><circle cx="43" cy="19" r="2.8"/><circle cx="57" cy="19" r="2.8"/></g>
+      <g style="fill:var(--gm-icing,#fff1e4)"><circle cx="50" cy="52" r="3"/><circle cx="50" cy="63" r="3"/><circle cx="50" cy="74" r="3"/></g>
+    </symbol>
+  </defs>
+</svg>
+
+<!-- ===== NAV ===== -->
+<header class="nav" id="nav">
+  <div class="wrap">
+    <a class="brand" href="#top" aria-label="The Gingerman home"><img src="assets/logo-white.png" alt="The Gingerman Social Corner" width="534" height="144"></a>
+    <nav class="menu" aria-label="Main">
+      <a href="#specials">Specials</a>
+      <a href="#menu">Menu</a>
+      <a href="#music">Live Music</a>
+      <a href="#story">Our Story</a>
+      <a href="#events">Events</a>
+      <a href="#visit">Visit</a>
+    </nav>
+    <div class="tools">
+      <span class="status js-status">Checking hours</span>
+      <a class="btn sm" href="tel:+19058499898"><i class="ph-bold ph-phone"></i>Book a table</a>
+      <button class="icon-btn burger" id="burger" aria-label="Open menu" aria-expanded="false" aria-controls="drawer"><i class="ph ph-list"></i></button>
+    </div>
+  </div>
+</header>
+<div class="drawer" id="drawer" aria-hidden="true">
+  <header>
+    <a class="brand" href="#top"><img src="assets/logo-white.png" alt="The Gingerman" style="height:32px"></a>
+    <button class="icon-btn" id="closeDrawer" aria-label="Close menu" style="font-size:28px"><i class="ph ph-x"></i></button>
+  </header>
+  <nav aria-label="Mobile">
+    <a href="#specials">Specials</a>
+    <a href="#menu">Menu</a>
+    <a href="#music">Live Music</a>
+    <a href="#story">Our Story</a>
+    <a href="#events">Events</a>
+    <a href="#visit">Visit</a>
+  </nav>
+  <footer>
+    <span class="status js-status">Checking hours</span>
+    <a class="btn" href="tel:+19058499898" style="justify-content:center"><i class="ph-bold ph-phone"></i>Book a table</a>
+  </footer>
+</div>
+
+<main>
+<!-- ===== HERO: eat, drink, relax ===== -->
+<section class="hero" id="top" aria-roledescription="carousel" aria-label="Eat, drink, relax">
+  <div class="track" id="track">
+
+    <div class="scene" aria-roledescription="slide" aria-label="Eat">
+      <video muted playsinline preload="auto" poster="video/eat.jpg" src="video/eat.mp4" aria-hidden="true"></video>
+      <div class="copy"><div class="wrap">
+        <span class="eyebrow">416 Kerr Street, Oakville</span>
+        <h1><span>Eat<em>.</em></span></h1>
+        <p>Smashed burgers, Boston dry ribs and homemade gastro pub fare in the heart of Kerr Village since 2011.</p>
+        <div class="cta">
+          <a class="btn" href="#menu">See the menu <i class="ph-bold ph-arrow-right"></i></a>
+          <a class="btn ghost" href="#specials">Weekly specials</a>
+        </div>
+      </div></div>
+    </div>
+
+    <div class="scene" aria-roledescription="slide" aria-label="Drink">
+      <video muted playsinline preload="metadata" poster="video/drink.jpg" src="video/drink.mp4" aria-hidden="true"></video>
+      <div class="copy"><div class="wrap">
+        <span class="eyebrow">416 Kerr Street, Oakville</span>
+        <h1><span>Drink<em>.</em></span></h1>
+        <p>Cold draft, cocktails and a patio on Kerr. Wings and a pint for $20 every Wednesday.</p>
+        <div class="cta">
+          <a class="btn" href="#specials">Weekly specials <i class="ph-bold ph-arrow-right"></i></a>
+          <a class="btn ghost" href="tel:+19058499898">Book a table</a>
+        </div>
+      </div></div>
+    </div>
+
+    <div class="scene" aria-roledescription="slide" aria-label="Relax">
+      <video muted playsinline preload="metadata" poster="video/relax.jpg" src="video/relax.mp4" aria-hidden="true"></video>
+      <div class="copy"><div class="wrap">
+        <span class="eyebrow">416 Kerr Street, Oakville</span>
+        <h1><span>Relax<em>.</em></span></h1>
+        <p>Live bands every Friday and Saturday night on our custom-built stage. Grab a table up front.</p>
+        <div class="cta">
+          <a class="btn" href="#music">See who's playing <i class="ph-bold ph-arrow-right"></i></a>
+          <a class="btn ghost" href="tel:+19058499898">Book a table</a>
+        </div>
+      </div></div>
+    </div>
+
+  </div>
+
+  <a class="onstage plate rivets" id="onstage" href="#music" hidden>
+    <small><i class="ph-fill ph-microphone-stage"></i><span id="osWhen">Next on stage</span></small>
+    <strong id="osName"></strong>
+    <span id="osMeta"></span>
+  </a>
+
+  <div class="hud">
+    <div class="dots" role="tablist" aria-label="Scenes">
+      <button role="tab" aria-label="Eat"><span></span></button>
+      <button role="tab" aria-label="Drink"><span></span></button>
+      <button role="tab" aria-label="Relax"><span></span></button>
+    </div>
+    <div class="scene-label" id="sceneLabel" aria-live="polite">Off the grill</div>
+    <div class="arrows">
+      <button id="prev" aria-label="Previous scene"><i class="ph ph-arrow-left"></i></button>
+      <button id="next" aria-label="Next scene"><i class="ph ph-arrow-right"></i></button>
+    </div>
+  </div>
+</section>
+
+<!-- ===== TICKER ===== -->
+<div class="ticker" aria-hidden="true"><div id="tickerTrack"></div></div>
+
+<!-- ===== WEEKLY SPECIALS ===== -->
+<section id="specials">
+  <div class="wrap">
+    <div class="head">
+      <h2 class="rv">Every day's got a deal</h2>
+      <p class="sub rv">The board changes daily. Pick a day, or just come in on the right one.</p>
+    </div>
+    <div class="days rv" role="tablist" aria-label="Day of the week" id="days"></div>
+    <div class="board rv">
+      <article class="special plate rivets" id="special" role="tabpanel" aria-live="polite"></article>
+      <div class="everyday">
+        <div class="plate rivets">
+          <small>Every day</small>
+          <strong>$7<span>each</span></strong>
+          <ul><li>Pulled beef slider</li><li>Pulled pork slider</li><li>Beef patty slider</li></ul>
+        </div>
+        <div class="plate rivets">
+          <small>Every day</small>
+          <strong>$8<span>each</span></strong>
+          <ul><li>Chicken taco</li><li>Fish taco</li><li>Steak taco</li></ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== MENU ===== -->
+<section class="menu-sec" id="menu">
+  <div class="wrap">
+    <div class="head">
+      <h2 class="rv">Fresh, homemade, built for sharing</h2>
+    </div>
+    <div class="mtabs rv" id="mtabs">
+      <div role="tablist" aria-label="Menu sections" style="display:flex;gap:4px" id="mtablist"></div>
+      <button class="gf-toggle" id="gf" aria-pressed="false"><i class="ph-bold ph-grains-slash"></i>Gluten friendly only</button>
+    </div>
+    <div class="menu-grid">
+      <div class="mpanel rv">
+        <div class="ph"><img id="mImg" src="assets/menu/starters.jpg" alt=""></div>
+        <div>
+          <h3 id="mTitle">Starters</h3>
+          <p id="mText"></p>
+          <div class="note"><span><span class="gf">GF</span> Gluten friendly</span><span><i class="ph ph-receipt"></i>All prices subject to HST</span></div>
+        </div>
+      </div>
+      <div class="items" id="items" role="tabpanel" aria-live="polite"></div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== LIVE MUSIC ===== -->
+<section class="music" id="music">
+  <div class="wrap">
+    <div class="head">
+      <h2 class="rv">Live on Kerr <span class="script">every Friday &amp; Saturday night</span></h2>
+    </div>
+
+    <article class="next rv" id="nextGig"></article>
+
+    <div class="rail-head rv">
+      <h3>Coming up</h3>
+      <div class="chips" id="months" aria-label="Filter by month"></div>
+    </div>
+    <div class="rail rv" id="rail"></div>
+
+    <div class="stage rv">
+      <div><i class="ph ph-microphone-stage"></i><b>Custom-built stage</b><span>Built for full bands, right in the room.</span></div>
+      <div><i class="ph ph-speaker-hifi"></i><b>In-house PA</b><span>Guitars go direct into the system. Drum mics supplied.</span></div>
+      <div><i class="ph ph-sliders-horizontal"></i><b>Pro lighting</b><span>Set up and run by the house, every show.</span></div>
+      <div><i class="ph ph-headphones"></i><b>John on sound</b><span>The soundman the bands keep writing in about.</span></div>
+    </div>
+
+    <div class="voices rv">
+      <blockquote id="quote" aria-live="polite"><p></p><cite></cite></blockquote>
+      <div class="bands" role="tablist" aria-label="What the bands say" id="bands"></div>
+    </div>
+
+    <div class="booking rv">
+      <p><b>In a band?</b> Bring a drum kit, we handle the rest. Send us your dates and a few links.</p>
+      <a class="link" href="mailto:thegingermansocialcorner@gmail.com?subject=Band%20booking%20enquiry">Email us about a date <i class="ph-bold ph-arrow-right"></i></a>
+    </div>
+  </div>
+</section>
+
+<!-- ===== STORY ===== -->
+<section class="story" id="story">
+  <img src="assets/stage.jpg" alt="" loading="lazy">
+  <div class="wrap">
+    <span class="script rv">Est. 2011</span>
+    <h2 class="rv"><span>Knocked down.</span> <em>Back on Kerr.</em></h2>
+    <p class="rv">We opened in October 2011 in the heart of Kerr Village. After a tragic fire, we rebuilt and reopened at 416 Kerr Street, with a brand new stage and the same fresh, homemade food.</p>
+    <div class="facts rv">
+      <div><b>2011</b><span>First opened our doors in Kerr Village</span></div>
+      <div><b>416</b><span>Kerr Street, our new home</span></div>
+      <div><b>7</b><span>Days a week, open till midnight or later</span></div>
+      <div><b>$11.5K</b><span>Presented to Safety Net here by 100 Guys Who Care</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== EVENTS & COMMUNITY ===== -->
+<section id="events">
+  <div class="wrap">
+    <div class="head">
+      <h2 class="rv">More than a pub</h2>
+      <p class="sub rv">Book launches, fundraisers, team nights and holiday parties. Kerr Village gets together here.</p>
+    </div>
+    <div class="bento">
+      <article class="tile big rv">
+        <img src="assets/book-tofino.jpg" alt="Cover of The Tofino Deception by Cathal Flynn-Post" loading="lazy" style="object-position:70% center">
+        <h3>Local authors launch here</h3>
+        <p>Oakville author Cathal Flynn-Post launched The Donegal Cipher and The Tofino Deception at The Gingerman, with $20 plate-and-pint specials all afternoon.</p>
+      </article>
+      <article class="tile rv">
+        <img src="assets/cheque.jpg" alt="100 Guys Who Care Oakville presenting an $11,500 cheque to Safety Net" loading="lazy">
+        <h3>100 Guys Who Care</h3>
+        <p>$11,500 to Safety Net, March 2025.</p>
+      </article>
+      <article class="tile hire rv">
+        <svg class="gman" viewBox="0 0 100 120" aria-hidden="true"><use href="#gm"/></svg>
+        <h3>Now hiring</h3>
+        <p>Servers, bartenders, managers, cooks, chefs, hosts and dishwashers.</p>
+        <a class="link" href="mailto:thegingermansocialcorner@gmail.com?subject=Job%20application">Send your resume <i class="ph-bold ph-arrow-right"></i></a>
+      </article>
+      <article class="tile wide rv">
+        <img src="assets/crowd.jpg" alt="A full room celebrating at The Gingerman" loading="lazy">
+        <h3>Book the room</h3>
+        <p>Birthdays, team nights, fundraisers and holiday parties, with a stage and PA already set up.</p>
+        <a class="link" href="mailto:thegingermansocialcorner@gmail.com?subject=Private%20event%20enquiry">Plan an event <i class="ph-bold ph-arrow-right"></i></a>
+      </article>
+      <article class="tile full rv">
+        <img src="assets/bar.jpg" alt="Bartender building cocktails behind a busy bar" loading="lazy">
+        <h3>Bar &amp; patio</h3>
+        <p>Domestic and import draft, a full cocktail bar and a patio right on Kerr Street.</p>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- ===== VISIT ===== -->
+<section class="visit" id="visit">
+  <div class="wrap visit-grid">
+    <div>
+      <h2 class="rv">Pull up a chair on Kerr</h2>
+      <p class="sub rv">416 Kerr Street in Kerr Village, Oakville. Open seven days a week.</p>
+      <span class="status open-now js-status rv">Checking hours</span>
+      <div class="hours rv" id="hours">
+        <b>Mon to Thu</b><span>11:30AM to midnight</span>
+        <b>Friday</b><span>11:30AM to 1AM</span>
+        <b>Saturday</b><span>11:30AM to 1AM</span>
+        <b>Sunday</b><span>11:30AM to midnight</span>
+      </div>
+      <div class="contact rv">
+        <a href="tel:+19058499898"><i class="ph ph-phone"></i>(905) 849-9898</a>
+        <a href="https://maps.google.com/?q=416+Kerr+Street+Oakville+ON+L6K+3C1" target="_blank" rel="noopener"><i class="ph ph-map-pin"></i>416 Kerr Street, Oakville, ON L6K 3C1</a>
+        <a href="mailto:thegingermansocialcorner@gmail.com"><i class="ph ph-envelope-simple"></i>thegingermansocialcorner@gmail.com</a>
+      </div>
+    </div>
+    <iframe class="map rv" title="Map to The Gingerman, 416 Kerr Street, Oakville" loading="lazy" referrerpolicy="no-referrer-when-downgrade" src="https://maps.google.com/maps?q=416%20Kerr%20Street%2C%20Oakville%2C%20ON%20L6K%203C1&t=&z=15&ie=UTF8&iwloc=&output=embed"></iframe>
+  </div>
+</section>
+</main>
+
+<!-- ===== CATCH THE GINGERMAN ===== -->
+<div id="chase">
+  <button id="gman" class="idle" aria-label="Catch the Gingerman, a little game"><svg viewBox="0 0 100 120" aria-hidden="true"><g class="body" style="fill:var(--gm,#f15a29)">
+        <circle cx="50" cy="22" r="19"/>
+        <rect x="34" y="40" width="32" height="44" rx="14"/>
+      </g>
+      <g style="stroke:var(--gm,#f15a29)" stroke-linecap="round" fill="none" class="limbs">
+        <path class="arm l" d="M40 54H18" stroke-width="18"/>
+        <path class="arm r" d="M60 54h22" stroke-width="18"/>
+        <path class="leg l" d="M43 80 33 106" stroke-width="19"/>
+        <path class="leg r" d="M57 80l10 26" stroke-width="19"/>
+      </g>
+      <g fill="none" style="stroke:var(--gm-icing,#fff1e4)" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M42 29q8 6 16 0"/>
+        <path d="M14 48l3 3-3 3 3 3M86 48l-3 3 3 3-3 3" stroke-width="2.2"/>
+      </g>
+      <g style="fill:var(--gm-eyes,#1a0d06)"><circle cx="43" cy="19" r="2.8"/><circle cx="57" cy="19" r="2.8"/></g>
+      <g style="fill:var(--gm-icing,#fff1e4)"><circle cx="50" cy="52" r="3"/><circle cx="50" cy="63" r="3"/><circle cx="50" cy="74" r="3"/></g></svg></button>
+  <div id="bubble" aria-live="polite"></div>
+  <div id="count" aria-hidden="true"><b>0</b></div>
+</div>
+<canvas id="confetti" aria-hidden="true"></canvas>
+
+<!-- ===== FOOTER ===== -->
+<footer>
+  <div class="wrap">
+    <div class="fgrid">
+      <div>
+        <a class="brand" href="#top"><img src="assets/logo-white.png" alt="The Gingerman Social Corner" style="height:44px"></a>
+        <span class="script">Eat, drink &amp; relax</span>
+        <p style="margin-top:10px;max-width:38ch">Your neighbourhood social hangout in Kerr Village, Oakville, since 2011.</p>
+      </div>
+      <div><h4>Eat &amp; drink</h4>
+        <a href="#menu">Menu</a>
+        <a href="#specials">Weekly specials</a>
+        <a href="#events">Bar &amp; patio</a>
+      </div>
+      <div><h4>Live</h4>
+        <a href="#music">Music calendar</a>
+        <a href="mailto:thegingermansocialcorner@gmail.com?subject=Band%20booking%20enquiry">Band bookings</a>
+        <a href="#events">Events</a>
+      </div>
+      <div><h4>Visit</h4>
+        <a href="#visit">Hours &amp; directions</a>
+        <a href="tel:+19058499898">(905) 849-9898</a>
+        <a href="mailto:thegingermansocialcorner@gmail.com?subject=Job%20application">Jobs</a>
+      </div>
+    </div>
+    <div class="fbot">
+      <span>© <span id="yr">2026</span> The Gingerman Social Eatery, an Eat Drink Relax Hospitality Inc. venue.</span>
+      <span>Sample concept site. Footage and food stills courtesy of Mixkit.</span>
+    </div>
+  </div>
+</footer>
+<div id="end" aria-hidden="true" style="height:1px"></div>
+
+<script>
+const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+const $ = (s, r = document) => r.querySelector(s);
+const $$ = (s, r = document) => [...r.querySelectorAll(s)];
+const esc = s => String(s).replace(/[&<>"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const NOW = new Date();
+const gmSvg = cls => `<svg class="${cls}" viewBox="0 0 100 120" aria-hidden="true"><use href="#gm"/></svg>`;
+
+/* ================= HERO: eat, drink, relax =================
+   Each clip plays through once, then hands off to the next scene. */
+const SCENES = [
+  { label:'Off the grill', hold:150 },
+  { label:'On tap',        hold:150 },
+  { label:'On stage',      hold:150 },
+];
+const track = $('#track');
+const scenes = [...track.children];
+const videos = scenes.map(s => s.querySelector('video'));
+const dots = $$('.dots button');
+const label = $('#sceneLabel');
+let cur = -1, raf = 0, handoff = 0;
+
+function go(i) {
+  i = (i + SCENES.length) % SCENES.length;
+  if (i === cur) return;
+  cancelAnimationFrame(raf); clearTimeout(handoff);
+  if (cur >= 0) { videos[cur].pause(); scenes[cur].classList.remove('on'); }
+  cur = i;
+  track.style.transform = `translateX(${-i * 100 / SCENES.length}%)`;
+  label.textContent = SCENES[i].label;
+  dots.forEach((d, k) => { d.setAttribute('aria-selected', k === i); d.classList.toggle('done', k < i); d.classList.remove('live'); d.style.setProperty('--p', 0); });
+  scenes.forEach((s, k) => s.setAttribute('aria-hidden', k !== i));
+  const v = videos[i], el = scenes[i];
+  v.currentTime = 0;
+  const nx = videos[(i + 1) % SCENES.length]; nx.preload = 'auto'; nx.currentTime = 0;   // warm up the next clip
+  if (reduce) { el.classList.add('on'); return; }   // poster frame + copy, no autoplay
+  const p = v.play(); if (p && p.catch) p.catch(() => el.classList.add('on'));
+  setTimeout(() => el.classList.add('on'), 300);
+  dots[i].classList.add('live');
+  const tick = () => {
+    dots[i].style.setProperty('--p', Math.min(1, v.currentTime / (v.duration || 1)));
+    if (v.ended) { handoff = setTimeout(() => go(i + 1), SCENES[i].hold); return; }
+    raf = requestAnimationFrame(tick);
+  };
+  raf = requestAnimationFrame(tick);
+}
+dots.forEach((d, k) => d.addEventListener('click', () => go(k)));
+$('#next').addEventListener('click', () => go(cur + 1));
+$('#prev').addEventListener('click', () => go(cur - 1));
+const hero = $('.hero');
+hero.addEventListener('keydown', e => { if (e.key === 'ArrowRight') go(cur + 1); if (e.key === 'ArrowLeft') go(cur - 1); });
+
+// swipe / drag between scenes
+let x0 = null, dx = 0;
+hero.addEventListener('pointerdown', e => { if (e.target.closest('a,button')) return; x0 = e.clientX; dx = 0; track.classList.add('dragging'); });
+hero.addEventListener('pointermove', e => { if (x0 === null) return; dx = e.clientX - x0; track.style.transform = `translateX(calc(${-cur * 100 / SCENES.length}% + ${dx}px))`; });
+const release = () => { if (x0 === null) return; track.classList.remove('dragging'); const d = dx; x0 = null;
+  if (Math.abs(d) > 70) go(cur + (d < 0 ? 1 : -1)); else track.style.transform = `translateX(${-cur * 100 / SCENES.length}%)`; };
+['pointerup','pointercancel','pointerleave'].forEach(t => hero.addEventListener(t, release));
+
+// pause the footage when the hero is off screen, resume when it's back
+new IntersectionObserver(([e]) => { if (cur < 0 || reduce) return; const v = videos[cur]; if (e.isIntersecting) { if (!v.ended) v.play().catch(() => {}); } else v.pause(); }, {threshold:.2}).observe(hero);
+videos[0].addEventListener('canplay', () => { if (cur < 0) go(0); }, {once:true});
+setTimeout(() => { if (cur < 0) go(0); }, 2500);
+
+/* ================= NAV ================= */
+const nav = $('#nav');
+new IntersectionObserver(([e]) => nav.classList.toggle('solid', !e.isIntersecting), {rootMargin:'-72px 0px 0px 0px'}).observe(hero);
+const drawer = $('#drawer'), burger = $('#burger');
+const setDrawer = open => { drawer.classList.toggle('open', open); drawer.setAttribute('aria-hidden', !open); burger.setAttribute('aria-expanded', open); document.body.style.overflow = open ? 'hidden' : ''; };
+burger.onclick = () => setDrawer(true);
+$('#closeDrawer').onclick = () => setDrawer(false);
+$$('#drawer nav a').forEach(a => a.addEventListener('click', () => setDrawer(false)));
+addEventListener('keydown', e => { if (e.key === 'Escape') setDrawer(false); });
+
+/* ================= REVEALS ================= */
+const io = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } }), {threshold:.12});
+$$('.rv').forEach(el => io.observe(el));
+
+/* ================= HOURS: open now? =================
+   Close times are in hours from that day's midnight, so 25 = 1AM the next morning. */
+const CLOSE = [24, 24, 24, 24, 24, 25, 25];   // Sun..Sat
+const OPEN = 11.5;
+const fmtClose = h => h >= 25 ? '1AM' : 'midnight';
+function hoursStatus(d = new Date()) {
+  const h = d.getHours() + d.getMinutes() / 60, day = d.getDay(), prev = (day + 6) % 7;
+  if (CLOSE[prev] > 24 && h < CLOSE[prev] - 24) return { open:true, text:`Open now until ${fmtClose(CLOSE[prev])}` };
+  if (h >= OPEN && h < CLOSE[day]) return { open:true, text:`Open now until ${fmtClose(CLOSE[day])}` };
+  return { open:false, text: h < OPEN ? 'Opens today at 11:30AM' : 'Opens tomorrow at 11:30AM' };
+}
+const st = hoursStatus(NOW);
+$$('.js-status').forEach(el => { el.classList.toggle('open', st.open); el.innerHTML = st.open ? st.text.replace(/^Open now/, '<b>Open now</b>') : st.text; });
+const day = NOW.getDay();
+$$('#hours b')[day === 0 ? 3 : day === 6 ? 2 : day === 5 ? 1 : 0].classList.add('today');
+$('#yr').textContent = NOW.getFullYear();
+
+/* ================= TICKER ================= */
+const TICK = ['Live music every Friday & Saturday', '$20 wings & a pint on Wednesdays', 'Open till 1AM Friday & Saturday', '$7 sliders, every day', 'Gluten-friendly options', 'Patio on Kerr Street', 'Kerr Village since 2011'];
+const tickRun = TICK.map(t => `${esc(t)}<svg viewBox="0 0 100 120"><use href="#gm"/></svg>`).join('');
+$('#tickerTrack').innerHTML = `<span>${tickRun}</span><span>${tickRun}</span>`;
+
+/* ================= WEEKLY SPECIALS ================= */
+const SPECIALS = [   // Sun..Sat, straight off the house board
+  { day:'Sunday',    price:'7',  title:'Sliders all day', text:'No board special on Sundays, but sliders are still $7 and tacos $8, all day, every day.' },
+  { day:'Monday',    price:'15', title:'Flatbreads', text:'Any one of our flatbreads: Abbey, Portobello Mushroom or Pepperoni Deluxe.' },
+  { day:'Tuesday',   price:'20', title:'Tacos & a pint', text:'Any 3 tacos (chicken, fish or steak) and a domestic pint.' },
+  { day:'Wednesday', price:'20', title:'Wings & a pint', text:'A pound of wings in your choice of sauce and a domestic pint. Upgrade to an import for $2.' },
+  { day:'Thursday',  price:'20', title:'Slider trio & a pint', text:'Any 3 sliders (pulled beef, pulled pork or beef patty) and a domestic pint.' },
+  { day:'Friday',    price:'25', title:'Fish & chip Friday', text:'Two pieces of battered basa with fries.' },
+  { day:'Saturday',  price:'20', title:'Dry ribs & a pint', text:'A plate of Boston pork dry ribs and a domestic pint.' },
+];
+const ORDER = [1, 2, 3, 4, 5, 6, 0];
+const daysEl = $('#days'), specialEl = $('#special');
+daysEl.innerHTML = ORDER.map(i => `<button role="tab" data-d="${i}" aria-selected="false">${i === day ? '<span class="today">Today</span>' : ''}<span class="long">${SPECIALS[i].day.slice(0,3)}</span><span class="short">${SPECIALS[i].day[0]}</span></button>`).join('');
+function showSpecial(i) {
+  const s = SPECIALS[i];
+  specialEl.innerHTML = `${gmSvg('gman')}<div class="anim"><div class="day">${i === day ? 'Today, ' : ''}${s.day}</div><div class="price"><sup>$</sup>${s.price}</div><h3>${esc(s.title)}</h3><p>${esc(s.text)}</p></div>`;
+  $$('button', daysEl).forEach(b => b.setAttribute('aria-selected', +b.dataset.d === i));
+}
+daysEl.addEventListener('click', e => { const b = e.target.closest('button'); if (b) showSpecial(+b.dataset.d); });
+daysEl.addEventListener('keydown', e => {
+  if (!['ArrowLeft','ArrowRight'].includes(e.key)) return;
+  const btns = $$('button', daysEl), k = btns.indexOf(document.activeElement); if (k < 0) return;
+  const n = btns[(k + (e.key === 'ArrowRight' ? 1 : 6)) % 7]; n.focus(); showSpecial(+n.dataset.d);
+});
+showSpecial(day);
+
+/* ================= MENU ================= */
+const MENU = {
+  starters: { title:'Starters', img:'starters', text:'Wings, dry ribs, dips and flatbreads to pass around the table.', items:[
+    ['Mexican Tortilla Soup','Signature soup created from scratch',10],
+    ['Soup of the Day','Seasonal and house crafted. Ask your server for details',10],
+    ['Beef Chili','AAA beef and beans. Everything you would expect in this comfort food',14,1],
+    ['Spinach & Artichoke Dip','Spinach artichoke cream cheese, shredded cheese, chips',18,1],
+    ['Sweet Potato Fries','Kosher salted and fried to perfection',13,1],
+    ['Poutine','Yukon Gold house-cut fries, Montréal cheese curds, peppercorn gravy',17],
+    ['Dry Cracked Ribs','Boston pork dry ribs, Fiery Crack BBQ sauce, kosher salted',16,1],
+    ['Wings (1 lb)','Suicide, Hot, Medium, Mild, BBQ, Honey Garlic or Salt & Pepper',19,1],
+    ['Nachos','Tortilla chips, cheese, black beans, red and green peppers, pico de gallo, salsa, sour cream',26],
+    ['Tuna Tataki','6 oz pan-seared black and white sesame crusted ahi tuna, soy glaze, wontons',25],
+    ['Blue Goose Quesadilla','Cheese, chicken, spinach, black beans, salsa, sour cream, avocado',19],
+    ['Lettuce Wraps','Grilled chicken, ginger soy glaze, pineapple salsa, lime, pickled onion, 4 romaine heart leaves',18],
+    ['Abbey Flatbread','Chicken, bacon, diced tomato, white onion, cheese, garlic aioli',23],
+    ['Portobello Mushroom Flatbread','Portobello mushrooms, caramelized onions, sweet Asian dressing',23],
+    ['Pepperoni Deluxe Flatbread','Pepperoni, green peppers, mushrooms, cheese, honey drizzle',23],
+    ['Edamame','Steamed and tossed in roasted sesame oil, kosher salted',12,1],
+    ['Brussels Sprouts','Golden, crisp, salted',15,1],
+    ['Onion Rings','Crisp, golden and delicious',15,1],
+    ['Burrata','Large bocconcini, grape tomatoes, olive oil, basil, balsamic vinegar pearls',19,1],
+  ]},
+  tacos: { title:'Sliders & tacos', img:'tacos', text:'Order them in threes. Sliders are $7 and tacos are $8, every day of the week.', items:[
+    ['McKaos Slider','2 oz ground chuck, special sauce, cheese, lettuce, pickles, brioche',7],
+    ['Pulled Beef Slider','Slow-braised pulled beef, jalapeños, hickory sticks, brioche',7],
+    ['Pulled Pork Slider','House-cooked pulled pork, kettle chip, coleslaw, brioche',7],
+    ['Fish Taco','Lightly dusted fried basa, pineapple salsa, lime crema, soft white corn shell',8,1],
+    ['Chicken Taco','Breaded chicken, cilantro, salsa, chipotle mayo, soft white corn shell',8,1],
+    ['Steak Taco','Striploin, chimichurri, sautéed red and green peppers and white onions, soft white corn shell',8,1],
+    ['Barbacoa Taco','Braised beef, jalapeño, pico de gallo, avocado purée',8,1],
+    ['Carnitas Taco','Slow-cooked pork, pineapple salsa, lime, cilantro, white corn shell',8,1],
+  ]},
+  salads: { title:'Salads', img:'salads', text:'Big bowls with real toppings: blackened salmon, ahi tataki and jerk chicken.', items:[
+    ['Side House Salad','Fresh greens in house vinaigrette with carrots, onions and tomatoes',9],
+    ['Blackened Salmon Oriental','Blackened Atlantic salmon, pico de gallo, mixed greens, sesame seeds, crispy wontons, grape tomatoes, sweet Asian dressing',28],
+    ['Southwest Taco Salad','Blackened chicken, mixed greens, pico de gallo, black beans, grape tomatoes, corn, chili-lime dressing',26],
+    ['Chicken Caesar','Grilled chicken, romaine, house-made croutons, Parmesan, bacon, garlic aioli',26],
+    ['Blue Bomber Wedge','Iceberg wedge, grape tomatoes, blackened chicken, bacon, blue cheese, olives',27,1],
+    ['Black & White Asian Tataki','Sesame crusted ahi tuna, mixed greens, cucumber, tomato, shaved red onion, crunchy wontons, sweet Asian dressing',30,1],
+    ['Vermont Salad','Spinach, feta, strawberries, jerk chicken, roasted pecans, honey balsamic',26,1],
+  ]},
+  sandwiches: { title:'Sandwiches', img:'sandwiches', text:'Every sandwich comes with fries or a house salad.', items:[
+    ['Cali Club','Grilled chicken, garlic aioli, guacamole, bacon, lettuce, tomato',24],
+    ['Cowboy','Slow-braised beef, cheese, jalapeños, hickory sticks, bun',25],
+    ['We R The North','Crispy Creek slow-cooked pork, bacon, kettle chips, slaw',25],
+    ['Lobster Grilled Cheese','Lobster, cheese blend, multigrain bread, garlic aioli, crispy mustard',28],
+    ['Crispy Raven Chicken Wrap','Breaded all-white chicken tender, crispy bacon, cheese, arugula, tomato, red onion, honey mustard',24],
+    ['Jamaican Sandwich','Jerk chicken, pineapple salsa, pico de gallo, red onion, garlic aioli, mixed greens, toasted ciabatta',24],
+  ]},
+  burgers: { title:'Burgers', img:'burgers', text:'Hand-smashed ground chuck on a fresh bun, with fries or a house salad on the side.', items:[
+    ['Rusty Gull House Burger','Hand-crafted smashed ground chuck, lettuce, tomato, bun. Pickles, mayo, mustard, ketchup and relish your way',22],
+    ['Cardero Burger','Bacon, cheddar, onion straws, Forty Creek BBQ sauce, lettuce, bun',26],
+    ['Yale Burger','Crispy bacon, blue cheese sauce and crumble, lettuce, bun',26],
+    ['Sticky Rickie Burger','Two ground chuck patties, cheese, special sauce, pickles, fried egg, avocado purée, lettuce, bun',32],
+    ['The Flying Beaver','Caramelized onions, Portobello mushrooms, cheddar, peppercorn gravy, lettuce, tomato, bun',26],
+    ['McDean Deluxe','Double ground chuck patties, special sauce, pickles, lettuce, cheese. Move over, Big Mac',30],
+    ['Naam Veggie Burger','House-made with oats, carrots, sunflower seeds, almonds, black beans and onions. Cheddar, lettuce, tomato, mustard, aioli',26],
+    ['Big Bird Chicken Burger','Fried chicken tender, cheese, bacon, garlic aioli, chipotle mayo, onion straws, lettuce, bun',26],
+    ['Blackened Basa Burger','Pan-seared blackened basa, tartar sauce, lettuce, tomato, pickles, bun',26],
+  ]},
+  mains: { title:'Mains', img:'mains', text:'Comfort plates: fish and chips, baby back ribs, steak sandwich and seasonal Irish stew.', items:[
+    ['Feisty Blonde Fish & Chips','Two pieces of battered basa, fries, coleslaw, tartar sauce',31],
+    ['Asian Tataki Bowl','Seared sesame-crusted ahi tuna, basmati rice, pineapple salsa, edamame, carrot, crispy wontons, teriyaki, corn',32],
+    ['Full Rack Baby Back Ribs','Dry-rubbed, slow-cooked baby back ribs, house fries, coleslaw',33],
+    ['Steak Sandwich & Fries','AAA striploin, ciabatta, sautéed mushrooms and onions, compound butter',30],
+    ['Irish Stew','Seasonal. Chunks of beef, potatoes, carrots, peas and corn with toasted ciabatta',20],
+    ['Chicken Tenders','Crispy fried chicken tenders, house-cut fries, coleslaw',24],
+    ['Southern Beef Bowl','Braised beef, rice, corn, black beans, pico de gallo, crispy wonton strips, teriyaki, sesame',32],
+  ]},
+};
+let mKey = 'starters', gfOnly = false;
+const tablist = $('#mtablist'), itemsEl = $('#items');
+tablist.innerHTML = Object.entries(MENU).map(([k, c]) => `<button role="tab" data-k="${k}" aria-selected="${k === mKey}">${c.title}</button>`).join('');
+Object.values(MENU).forEach(c => { const im = new Image(); im.src = `assets/menu/${c.img}.jpg`; });   // warm the panel photos
+function showMenu(k, {swap = true} = {}) {
+  const c = MENU[k]; const changed = k !== mKey; mKey = k;
+  $('#mTitle').textContent = c.title; $('#mText').textContent = c.text;
+  if (swap && changed) { const img = $('#mImg'); const n = img.cloneNode(); n.src = `assets/menu/${c.img}.jpg`; img.replaceWith(n); }
+  const list = c.items.filter(it => !gfOnly || it[3]);
+  itemsEl.innerHTML = list.length ? list.map(([n, d, p, gf], i) => `<div class="item" style="--i:${i}"><div class="ih"><h4>${esc(n)}</h4>${gf ? '<span class="gf" title="Gluten friendly">GF</span>' : ''}<span class="dots"></span><b>$${p}</b></div><p>${esc(d)}</p></div>`).join('')
+    : `<div class="empty"><i class="ph ph-grains-slash"></i><h4>Nothing gluten friendly here</h4><p>Try Starters, Sliders &amp; tacos or Salads for gluten-friendly picks, or ask your server.</p><button class="btn ghost sm" id="gfOff">Show everything</button></div>`;
+  $$('[role=tab]', tablist).forEach(t => t.setAttribute('aria-selected', t.dataset.k === k));
+}
+tablist.addEventListener('click', e => { const t = e.target.closest('button'); if (!t) return; showMenu(t.dataset.k); tablist.scrollTo({left: t.offsetLeft - 16, behavior: reduce ? 'auto' : 'smooth'}); });
+const gfBtn = $('#gf');
+const setGf = v => { gfOnly = v; gfBtn.setAttribute('aria-pressed', v); showMenu(mKey, {swap:false}); };
+gfBtn.addEventListener('click', () => setGf(!gfOnly));
+itemsEl.addEventListener('click', e => { if (e.target.closest('#gfOff')) setGf(false); });
+showMenu(mKey, {swap:false});
+
+/* ================= LIVE MUSIC =================
+   From the monthly music schedule. Past dates drop off by themselves. */
+const P = 'assets/posters/';
+const GIGS = [
+  ['2026-10-02','Covered in Paint'], ['2026-10-03','Radio Sonics'],
+  ['2026-10-09','Hot Buttered Soul','',P+'hot-buttered-soul.jpg'],
+  ['2026-10-10','Night Owls','Rock n roll, no cover charge.',P+'night-owls.jpg'],
+  ['2026-10-16','Jimmy Vintage Band','',P+'jimmy-vintage.jpg'],
+  ['2026-10-17','The Music Factory','Neon Rewind: back to the 80s party. $5 cover, RSVP to save a spot.',P+'music-factory.jpg'],
+  ['2026-10-23','Hawthorne Band'],
+  ['2026-10-24','Vintage Derelicts','',P+'vintage-derelicts.jpg'],
+  ['2026-10-30','Caribou Band'],
+  ['2026-10-31','Fiddlestix','Halloween night. Costumes encouraged.'],
+  ['2026-11-06','Kim Foo Band'], ['2026-11-07','Descendants of Dunn'],
+  ['2026-11-13','Ford Kellermann Band'], ['2026-11-14','Table 69'],
+  ['2026-11-20','Hot Buttered Soul','',P+'hot-buttered-soul.jpg'],
+  ['2026-11-21','The Music Factory','',P+'music-factory.jpg'],
+  ['2026-11-28','Dirty Pioneers'],
+  ['2026-12-04','Bourbon & Co'], ['2026-12-05','Three Best Friends'],
+  ['2026-12-12','The Music Factory','',P+'music-factory.jpg'],
+  ['2026-12-31','Fiddlestix',"New Year's Eve. Ring in 2027 with us.",'',20,24],
+].map(([date, name, note = '', poster = '', s = 20, e = 23]) => ({ date, name, note, poster, s, e, d: new Date(date + 'T00:00:00') }));
+const today0 = new Date(NOW.getFullYear(), NOW.getMonth(), NOW.getDate());
+const upcoming = GIGS.filter(g => g.d >= today0);
+const MON = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+const WD = ['Sun','Mon','Tue','Wed','Thu','Fri','Sat'];
+const WDL = ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
+const hr = h => h >= 24 ? '12AM' : `${h > 12 ? h - 12 : h}${h >= 12 ? 'PM' : 'AM'}`;
+const span = g => g.e >= 24 ? `${hr(g.s).replace('PM','')}PM to midnight` : `${hr(g.s).replace('PM','')}-${hr(g.e)}`;
+function whenLabel(g) {
+  const days = Math.round((g.d - today0) / 864e5);
+  if (days === 0) return 'Tonight';
+  if (days === 1) return 'Tomorrow night';
+  if (days < 7) return `This ${WDL[g.d.getDay()]}`;
+  return `${WDL[g.d.getDay()]}, ${MON[g.d.getMonth()]} ${g.d.getDate()}`;
+}
+const shortDate = g => `${WD[g.d.getDay()]} ${MON[g.d.getMonth()]} ${g.d.getDate()}`;
+
+// add-to-calendar: a tiny .ics, built on the spot
+function ics(g) {
+  const pad = n => String(n).padStart(2, '0');
+  const stamp = (d, h) => { const x = new Date(d); x.setHours(h, 0, 0, 0); return `${x.getFullYear()}${pad(x.getMonth()+1)}${pad(x.getDate())}T${pad(x.getHours())}0000`; };
+  const body = ['BEGIN:VCALENDAR','VERSION:2.0','PRODID:-//The Gingerman//Live Music//EN','BEGIN:VEVENT',
+    `UID:${g.date}-${g.name.replace(/\W+/g,'')}@gingermansocialeatery.ca`, `DTSTAMP:${stamp(NOW, NOW.getHours())}`,
+    `DTSTART;TZID=America/Toronto:${stamp(g.d, g.s)}`, `DTEND;TZID=America/Toronto:${stamp(g.d, g.e)}`,
+    `SUMMARY:${g.name} live at The Gingerman`, 'LOCATION:The Gingerman\\, 416 Kerr Street\\, Oakville\\, ON L6K 3C1',
+    `DESCRIPTION:${(g.note || 'Live music on the Gingerman stage.').replace(/,/g,'\\,')} Tables: (905) 849-9898`,'END:VEVENT','END:VCALENDAR'].join('\r\n');
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(new Blob([body], {type:'text/calendar'}));
+  a.download = `gingerman-${g.date}.ics`; a.click(); setTimeout(() => URL.revokeObjectURL(a.href), 1000);
+}
+
+const nextEl = $('#nextGig'), railEl = $('#rail'), monthsEl = $('#months');
+if (!upcoming.length) {
+  nextEl.outerHTML = `<div class="empty rv in" style="margin-bottom:64px"><i class="ph ph-music-notes"></i><h4>New dates landing soon</h4><p>The next month's lineup is being booked. Call the bar for this weekend's band.</p><a class="btn ghost sm" href="tel:+19058499898">(905) 849-9898</a></div>`;
+  $('.rail-head').remove(); railEl.remove();
+} else {
+  const g = upcoming[0];
+  nextEl.innerHTML = `${g.poster ? `<div class="pst" style="--img:url('${g.poster}')"><img src="${g.poster}" alt="Gig poster for ${esc(g.name)}"></div>` : `<div class="pst type"><span><span class="d">${String(g.d.getDate()).padStart(2,'0')}</span><span class="m" style="display:block">${MON[g.d.getMonth()]} ${g.d.getFullYear()}</span></span>${gmSvg('gm-mini')}<span class="n">Live at The Gingerman</span></div>`}
+    <div class="info"><div class="when"><i class="ph-fill ph-microphone-stage"></i>${whenLabel(g)}</div><h3>${esc(g.name)}</h3>
+    <div class="meta">${shortDate(g)}, ${span(g)}</div>${g.note ? `<p class="note">${esc(g.note)}</p>` : `<p class="note">Live on the Gingerman stage. Come early for a table near the band.</p>`}
+    <div class="cta"><button class="btn" data-ics="0"><i class="ph-bold ph-calendar-plus"></i>Add to calendar</button><a class="btn ghost" href="tel:+19058499898">Book a table</a></div></div>`;
+  // hero plate mirrors the next gig
+  const os = $('#onstage'); os.hidden = false;
+  $('#osWhen').textContent = whenLabel(g).startsWith('Tonight') ? 'Tonight on stage' : 'Next on stage';
+  $('#osName').textContent = g.name; $('#osMeta').textContent = `${shortDate(g)}, ${span(g)}`;
+  setTimeout(() => os.classList.add('in'), 200);
+
+  const rest = upcoming.slice(1);
+  const months = [...new Set(rest.map(x => x.d.getMonth()))];
+  let mFilter = 'all';
+  monthsEl.innerHTML = [`<button aria-pressed="true" data-m="all">All</button>`, ...months.map(m => `<button aria-pressed="false" data-m="${m}">${MON[m]}</button>`)].join('');
+  const card = (x, i) => `<article class="gig" style="--i:${i}">
+    ${x.poster ? `<div class="pst" style="--img:url('${x.poster}')"><img loading="lazy" src="${x.poster}" alt="Gig poster for ${esc(x.name)}"></div>`
+      : `<div class="pst type">${gmSvg('gm-mini')}<span><span class="d">${String(x.d.getDate()).padStart(2,'0')}</span><span class="m" style="display:block">${MON[x.d.getMonth()]}, ${WD[x.d.getDay()]}</span></span><span class="n">${esc(x.name)}</span></div>`}
+    <div class="gm"><span class="gd">${shortDate(x)}</span><h4>${esc(x.name)}</h4><span class="t">${span(x)}</span><button class="ics" data-ics="${upcoming.indexOf(x)}" aria-label="Add ${esc(x.name)} on ${shortDate(x)} to your calendar"><i class="ph ph-calendar-plus"></i></button></div></article>`;
+  const drawRail = () => { railEl.innerHTML = rest.filter(x => mFilter === 'all' || x.d.getMonth() === +mFilter).map(card).join(''); railEl.scrollLeft = 0; };
+  monthsEl.addEventListener('click', e => { const b = e.target.closest('button'); if (!b) return; mFilter = b.dataset.m; $$('button', monthsEl).forEach(x => x.setAttribute('aria-pressed', x === b)); drawRail(); });
+  drawRail();
+  $('#music').addEventListener('click', e => { const b = e.target.closest('[data-ics]'); if (b) ics(upcoming[+b.dataset.ics]); });
+}
+
+/* ================= WHAT THE BANDS SAY ================= */
+const QUOTES = [
+  ['Hawthorne','Oct 2025','Your staff was top notch, the sound was great, the venue is amazing. Loved that your guests got up and danced the night away!'],
+  ['Midlife Chaoss','','The Gingerman has become the place to be for gigging bands from all over GTA west, with a terrific in-house sound system and stage.'],
+  ['Sonic Revival','Oakville firefighters','We were all talking after about how that was probably the best we have sounded, thanks to your setup there!'],
+  ['12 Gauge Charlie','Sept 2026','Your social eatery is top notch! Best in town. You treated us like family and that resonated with the band.'],
+  ['SideRoads5','Dec 2025',"Best sound man we have ever worked with. You rock. Can't wait till we can do it again."],
+  ['Whiskey Business','','Such a great night and a top shelf experience, start to finish.'],
+];
+const bandsEl = $('#bands'), quoteEl = $('#quote');
+let qi = 0, qTimer = 0;
+bandsEl.innerHTML = QUOTES.map(([n], i) => `<button role="tab" aria-selected="${i === 0}" data-q="${i}">${esc(n)}</button>`).join('');
+function showQuote(i) {
+  qi = i; const [n, when, q] = QUOTES[i];
+  quoteEl.innerHTML = `<p>${esc(q)}</p><cite><b>${esc(n)}</b>${when ? esc(when) + ', ' : ''}played The Gingerman</cite>`;
+  $$('button', bandsEl).forEach((b, k) => b.setAttribute('aria-selected', k === i));
+}
+const autoQuote = () => { clearInterval(qTimer); if (!reduce) qTimer = setInterval(() => showQuote((qi + 1) % QUOTES.length), 7000); };
+bandsEl.addEventListener('click', e => { const b = e.target.closest('button'); if (b) { showQuote(+b.dataset.q); autoQuote(); } });
+$('.voices').addEventListener('pointerenter', () => clearInterval(qTimer));
+$('.voices').addEventListener('pointerleave', autoQuote);
+showQuote(0); autoQuote();
+
+/* ================= CATCH THE GINGERMAN =================
+   He shows up at the bottom of the page. Tap him and he bolts.
+   Catch him five times and he gives up. */
+(() => {
+  const rig = $('#chase'), man = $('#gman'), bubble = $('#bubble'), count = $('#count');
+  const cv = $('#confetti'), cx = cv.getContext('2d');
+  const TARGET = 5;
+  const vw = () => document.documentElement.clientWidth;   // excludes the scrollbar
+  const TAUNTS = ['Run, run, as fast as you can!', "You can't catch me...", "...I'm the Gingerman!", 'So close. One more!'];
+  let x = vw() * 0.72, n = 0, bubbleT = 0, runT = 0;
+  const w = () => man.offsetWidth;
+  const place = () => {
+    man.style.transform = `translateX(${x}px)`;
+    const bx = Math.min(Math.max(8, x - 14), vw() - bubble.offsetWidth - 8);
+    bubble.style.transform = `translateX(${bx}px)`;
+    count.style.transform = `translateX(${Math.min(x, vw() - 120)}px)`;
+  };
+  const say = (t, ms = 2200) => { bubble.textContent = t; bubble.classList.add('show'); place(); clearTimeout(bubbleT); bubbleT = setTimeout(() => bubble.classList.remove('show'), ms); };
+  const punch = v => { count.firstElementChild.textContent = v; count.classList.remove('hit'); void count.offsetWidth; count.classList.add('hit'); };
+  man.addEventListener('pointerdown', e => {
+    e.preventDefault();
+    n++; punch(n);
+    if (n >= TARGET) {
+      n = 0; man.className = 'jump'; burst(x + w() / 2, innerHeight - 50);
+      say('You got me! See you Friday night.', 3200);
+      setTimeout(() => { man.className = 'idle'; count.classList.remove('hit'); }, 1400);
+      return;
+    }
+    let nx; do { nx = 16 + Math.random() * (vw() - w() - 32); } while (Math.abs(nx - x) < vw() * 0.3 && vw() > 400);
+    man.className = 'run' + (nx < x ? ' left' : '');
+    x = nx; place(); say(TAUNTS[(n - 1) % TAUNTS.length]);
+    clearTimeout(runT); runT = setTimeout(() => { man.classList.remove('run'); man.classList.add('idle'); }, 620);
+  });
+  let greeted = false;
+  new IntersectionObserver(([e]) => { rig.classList.toggle('in', e.isIntersecting); if (e.isIntersecting && !greeted) { greeted = true; setTimeout(() => say('Catch me if you can!', 2600), 700); } }).observe($('#end'));
+  addEventListener('resize', () => { x = Math.min(x, vw() - w() - 16); place(); });
+  place();
+
+  // crumbs and confetti, plain canvas
+  let parts = [], craf = 0;
+  function burst(bx, by) {
+    if (reduce) return;
+    cv.width = innerWidth; cv.height = innerHeight;
+    const cols = ['#f15a29','#ff9a6b','#fff1e4','#8a4b2a','#ffd166'];
+    for (let i = 0; i < 170; i++) { const a = -Math.PI / 2 + (Math.random() - .5) * 2.2, sp = 600 + Math.random() * 900;
+      parts.push({ x: bx, y: by, vx: Math.cos(a) * sp, vy: Math.sin(a) * sp, w: 5 + Math.random() * 8, h: 4 + Math.random() * 6, r: Math.random() * 6, vr: (Math.random() - .5) * 18, c: cols[i % cols.length], life: 1.8 + Math.random() * .8 }); }
+    if (craf) return;
+    let lt = performance.now();
+    const loop = t => { const dt = Math.min(.032, (t - lt) / 1000); lt = t; cx.clearRect(0, 0, cv.width, cv.height);
+      parts = parts.filter(p => (p.life -= dt) > 0);
+      for (const p of parts) { p.vy += 1700 * dt; p.vx *= .99; p.x += p.vx * dt; p.y += p.vy * dt; p.r += p.vr * dt;
+        cx.save(); cx.translate(p.x, p.y); cx.rotate(p.r); cx.globalAlpha = Math.min(1, p.life); cx.fillStyle = p.c; cx.fillRect(-p.w / 2, -p.h / 2, p.w, p.h); cx.restore(); }
+      if (parts.length) craf = requestAnimationFrame(loop); else { craf = 0; cx.clearRect(0, 0, cv.width, cv.height); } };
+    craf = requestAnimationFrame(loop);
+  }
+})();
+</script>
+</body>
+</html>
